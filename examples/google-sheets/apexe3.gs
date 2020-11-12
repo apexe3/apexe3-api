@@ -2,7 +2,7 @@ var keycloakUrl = "https://keycloak.ae3platform.com/auth/realms/ApexE3/protocol/
 var betaUrl = "https://app.ae3platform.com/";
 var apiRestURL = "https://api.ae3platform.com/";
 var ohlcvRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCV";
-
+var ohlcvRestTwoAssetsApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVTwoAssets";
 const INVALID_CREDS_MESSAGE = [['Your APEX:E3 Client Id or Client Secret is invalid. You need valid credentials to recieve data.']];
 
 /**
@@ -793,7 +793,12 @@ function AE3OHLCV_DEPRECATED(base, quote, exchange) {
         return "-";
     }
 }
-          
+ 
+/**
+ * 
+ * Retrieves OHLCV for the specified symbol and ranges
+ * usage example =AE3OHLCVTWOASSETS($B$4, $B$5, TEXTJOIN("",TRUE,$B$6), TEXTJOIN("",TRUE,"$B$7"),$B$9,"g")
+ */
 function AE3OHLCV(asset, from, to, interval,refreshValue){
   
  
@@ -829,6 +834,69 @@ function AE3OHLCV(asset, from, to, interval,refreshValue){
   }
   
 }
+ 
+  /**
+ * 
+ * Retrieves OHLCV for the specified symbols and ranges
+ * 
+ */
+function AE3OHLCVTWOASSETS(asset1, asset2, from, to, interval,refreshValue){
+ 
+  try{
+    
+    var accessToken = fetchAccessToken();
+
+    if(accessToken ==null){
+      return [['Please check your credentials or email contactus@apexe3.com quoting your API Client ID']];
+    }else{}
+    
+
+    
+    //UNCOMMENT TO DEBUG
+     //asset1 = 'TSLA';
+     //asset2 = 'BTC-USD';
+     //from = '01-01-2017';
+     //to = '01-11-2020';
+     //interval = '';
+    // var time = new Date(timeStamps[i]*1000); may have to do this for all time values..
+
+    var encodedAsset1 = encodeURIComponent(asset1);
+    var encodedAsset2 = encodeURIComponent(asset2);
+    
+    var params = 'symbol1=' + encodedAsset1 + '&symbol2='+encodedAsset2+'&from=' + from + '&to='+to+'&interval='+interval;
+    var url =  ohlcvRestTwoAssetsApiUrl + '?' + params;
+    var creds = getOptions(accessToken);
+    var response = UrlFetchApp.fetch(url, creds);
+    var entities = JSON.parse(response.getContentText()).result;
+    var combinedResults = [['Symbol','Time', 'Open', 'High', 'Low', 'Close', '','','', 'Symbol', 'Time', 'Open', 'High', 'Low', 'Close',]]
+    
+    if(entities!=null && entities.symbol1Result!=null && entities.symbol2Result!=null){
+      
+          //var resultsForAsset1 = entities.symbol1Result;
+          //var resultsForAsset2 = entities.symbol2Result;
+         for(var i=0; i< entities.symbol1Result.length; i++){
+                    
+             var combinedResult = [asset1,entities.symbol1Result[i][0], entities.symbol1Result[i][1], entities.symbol1Result[i][2], entities.symbol1Result[i][3], entities.symbol1Result[i][4],'','','', asset2,entities.symbol2Result[i][0], entities.symbol2Result[i][1], entities.symbol2Result[i][2], entities.symbol2Result[i][3], entities.symbol2Result[i][4]];              
+             combinedResults.push(combinedResult);              
+         }
+        
+         return combinedResults;
+    
+      
+    }else{
+      
+       return [['problem fetching content']];
+    }
+
+  }catch(e){
+  
+    return [['problem fetching content ' + e]];
+  }
+  
+}
+           
+          
+         
 
 /**
  * 
