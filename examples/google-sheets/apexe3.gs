@@ -1,6 +1,7 @@
 var keycloakUrl = "https://keycloak.ae3platform.com/auth/realms/ApexE3/protocol/openid-connect/token";
 var betaUrl = "https://app.ae3platform.com/";
 var apiRestURL = "https://api.ae3platform.com/";
+var ohlcvRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCV";
 
 const INVALID_CREDS_MESSAGE = [['Your APEX:E3 Client Id or Client Secret is invalid. You need valid credentials to recieve data.']];
 
@@ -11,14 +12,20 @@ const INVALID_CREDS_MESSAGE = [['Your APEX:E3 Client Id or Client Secret is inva
  */
 function onOpen(e) {
 
-    var sheet = SpreadsheetApp.getActiveSpreadsheet();
-    var triggers = ScriptApp.getUserTriggers(sheet);
+    var triggers = ScriptApp.getProjectTriggers();
+    var name = triggers[0].getHandlerFunction();
 
     if (triggers == null || triggers.length == 0) {
         startIt(e);
     }
 
 };
+
+function testOnOpen(){
+ 
+  onOpen('');
+  
+}
 
 /**
  * Help function to show GSheets Ui popup
@@ -85,7 +92,31 @@ function refreshData() {
     updateDateOnInsights();
     updateDateOnExchangeAnalytics();
     updateDateOnGlobalOrderbook();
+    updateDateOnGlobalOutlookDataSets();
+    updateDateOnEthDataSet();
 }
+
+/**
+ * 
+ * Refresh global Outlook Data sets by refreshing the date
+ * 
+ */
+function updateDateOnGlobalOutlookDataSets() {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Global Outlook Datasets');
+    sheet.getRange('BC1').setValue(Utilities.formatDate(new Date(), 'Etc/GMT', 'dd-MMM-yyyy HH:mm:ss'));
+}
+
+
+/**
+ * 
+ * Refresh Eth Data set by refreshing the date
+ * 
+ */
+function updateDateOnEthDataSet() {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('ETH Data');
+    sheet.getRange('L1').setValue(Utilities.formatDate(new Date(), 'Etc/GMT', 'dd-MMM-yyyy HH:mm:ss'));
+}
+
 
 /**
  * 
@@ -684,7 +715,7 @@ function AE3SCREEN(base, quote, exchangeId, time, rsi, smaCross, volatility, bol
 function AE3OHLCV(base, quote, exchange) {
 
     var MILLIS_PER_DAY = 1000 * 60 * 60 * 24;
-    var TEN_DAYS_AGO = MILLIS_PER_DAY * 5;
+    var TEN_DAYS_AGO = MILLIS_PER_DAY * 365;
     var now = new Date();
     var tenDaysAgo = new Date(now.getTime() - TEN_DAYS_AGO);
 
@@ -715,7 +746,7 @@ function AE3OHLCV(base, quote, exchange) {
             },
             "endDate": nowFormatted,
             "startDate": tenDaysAgoFormatted,
-            "interval": "1m"
+            "interval": "1d"
         },
 
         "query": query
@@ -761,6 +792,42 @@ function AE3OHLCV(base, quote, exchange) {
     } else {
         return "-";
     }
+}
+          
+function fetchTraditionalAssetPrices(asset, from, to, interval,refreshValue){
+  
+ 
+  
+  try{
+    
+    var accessToken = fetchAccessToken();
+
+    if(accessToken ==null){
+      return [['Please check your credentials or email contactus@apexe3.com quoting your API Client ID']];
+    }else{}
+    
+    var encodedAsset = encodeURIComponent(asset);
+    
+    //UNCOMMENT TO DEBUG
+   // asset = 'TSLA';
+   // from = '01-01-2017';
+   // to = '01-11-2020';
+    //interval = "3y";
+    // var time = new Date(timeStamps[i]*1000); may have to do this for all time values..
+    
+    var params = 'symbol=' + encodedAsset + '&from=' + from + '&to='+to+'&interval='+interval;
+    var url = ohlcvRestApiUrl + '?' + params;
+    var creds = getOptions(accessToken);
+    var response = UrlFetchApp.fetch(url, creds);
+    var entities = JSON.parse(response.getContentText()).result;
+    
+    return entities
+    
+  }catch(e){
+  
+    return [['problem fetching content']];
+  }
+  
 }
 
 /**
@@ -922,3 +989,7 @@ function compareAsksAsc(a, b) {
         return -1;
     return 0;
 }
+
+
+
+
