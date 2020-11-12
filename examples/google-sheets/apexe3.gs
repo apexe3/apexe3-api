@@ -712,7 +712,7 @@ function AE3SCREEN(base, quote, exchangeId, time, rsi, smaCross, volatility, bol
  * @param quote 
  * @param exchange 
  */
-function AE3OHLCV(base, quote, exchange) {
+function AE3OHLCV_DEPRECATED(base, quote, exchange) {
 
     var MILLIS_PER_DAY = 1000 * 60 * 60 * 24;
     var TEN_DAYS_AGO = MILLIS_PER_DAY * 365;
@@ -794,7 +794,7 @@ function AE3OHLCV(base, quote, exchange) {
     }
 }
           
-function fetchTraditionalAssetPrices(asset, from, to, interval,refreshValue){
+function AE3OHLCV(asset, from, to, interval,refreshValue){
   
  
   
