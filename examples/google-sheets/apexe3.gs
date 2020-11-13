@@ -797,12 +797,10 @@ function AE3OHLCV_DEPRECATED(base, quote, exchange) {
 /**
  * 
  * Retrieves OHLCV for the specified symbol and ranges
- * usage example =AE3OHLCVTWOASSETS($B$4, $B$5, TEXTJOIN("",TRUE,$B$6), TEXTJOIN("",TRUE,"$B$7"),$B$9,"g")
+ * usage example =AE3OHLCV($B$4,JOIN("'",$B$5), JOIN("'",$B$6),$B$9,"g")
  */
 function AE3OHLCV(asset, from, to, interval,refreshValue){
-  
  
-  
   try{
     
     var accessToken = fetchAccessToken();
@@ -811,14 +809,16 @@ function AE3OHLCV(asset, from, to, interval,refreshValue){
       return [['Please check your credentials or email contactus@apexe3.com quoting your API Client ID']];
     }else{}
     
-    var encodedAsset = encodeURIComponent(asset);
+   
     
     //UNCOMMENT TO DEBUG
-   // asset = 'TSLA';
-   // from = '01-01-2017';
-   // to = '01-11-2020';
-    //interval = "3y";
+   //asset = 'UNI-USD';
+   //from = '01-01-2020';
+   // to = '31-12-2020';
+   // interval = "";
     // var time = new Date(timeStamps[i]*1000); may have to do this for all time values..
+    
+     var encodedAsset = encodeURIComponent(asset);
     
     var params = 'symbol=' + encodedAsset + '&from=' + from + '&to='+to+'&interval='+interval;
     var url = ohlcvRestApiUrl + '?' + params;
@@ -841,7 +841,6 @@ function AE3OHLCV(asset, from, to, interval,refreshValue){
  * 
  */
 function AE3OHLCVTWOASSETS(asset1, asset2, from, to, interval,refreshValue){
- 
   try{
     
     var accessToken = fetchAccessToken();
