@@ -83,7 +83,7 @@ python3 examples/python/setup.py install
 sudo python3 examples/python/setup.py install 
 ```
 
-See [Quick start](https://github.com/apexe3/apexe3-api/blob/main/README.md#quick-start---global-aggregated-orderbook-streamed-in-the-command-line) below for an example of what you can do once the Python dependencies have been installed. 
+See Low Code examples for what you can do once you have installed dependencies (https://github.com/apexe3/apexe3-api/tree/main/examples)
 
 **Nodejs**
 
@@ -98,5 +98,5 @@ cd apexe3-api/examples/nodejs
 npm install
 ```
  
-## See Low Code examples for what you can do once you have installed dependencies (https://github.com/apexe3/apexe3-api/tree/main/examples)
+See Low Code examples for what you can do once you have installed dependencies (https://github.com/apexe3/apexe3-api/tree/main/examples)
 
