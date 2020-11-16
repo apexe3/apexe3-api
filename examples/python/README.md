@@ -110,7 +110,7 @@ Uncommenting the following block, will produce similarly structured tables for w
 
 ## On-demand Screener
 
-Progrmmatically screen markets using technical indicators for any asset pair, quote or any exchange.
+Programmatically screen markets using technical indicators for any asset pair, quote or any exchange.
 
 To run:
 
