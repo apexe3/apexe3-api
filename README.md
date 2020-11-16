@@ -97,47 +97,6 @@ cd apexe3-api/examples/nodejs
 ```shell
 npm install
 ```
-See [Quick start](https://github.com/apexe3/apexe3-api/blob/main/README.md#quick-start---global-aggregated-orderbook-streamed-in-the-command-line) below for an example of what you can do once the Nodejs dependencies have been installed. 
+ 
+## See Low Code examples for what you can do once you have installed dependencies (https://github.com/apexe3/apexe3-api/tree/main/examples)
 
-## Quick start - global aggregated orderbook streamed in the command line
-
-**You will need authentication credentials to run this example. Contact contactus@apexe3.com to get your credentials**. 
-
-**Python**
-
-Replace the following lines in examples/python/real_time_global_orderbook.py with your APEX:E3 credentials
-
-```python
-  clientId = "your-client-id-goes-here"
-  clientSecret = "your-client-secret-goes-here"
-```  
-
-To stream the global orderbook for BTC/USDT across all supported exchanges type
-
-```shell
-python3 examples/python/real_time_global_orderbook.py
-```
-**Nodejs**
-
-Replace the following lines in examples/nodejs/real-time-global-orderbook.js with your APEX:E3 credentials
-
-```javascript
-  const clientId = "your-client-id-goes-here";
-  const clientSecret = "your-client-secret-goes-here";
-```  
-
-To stream the global orderbook for BTC/USDT across all supported exchanges type
-
-```shell
-cd apexe3-api/examples/nodejs
-node real-time-global-orderbook.js
-```
-
-**Once run, this will produce a real-time updating stream of the global orderbook for BTC/USDT across exchanges.**
-
-
-**Google Sheets**
-
-The following [Dashboard](https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8777n4TIZvcWjD48WrKxPiJcaTOZwBg2WWNyHgR8NnDgLMtCT1E2EPqb2d_otdLUw3YzBQgB6_bLv/pubhtml) is powered by the APEX:E3 API. This is a read-only example of what can be built with our API. To request access to an interactive sheet, please email us on contactus@apexe3.com.
-
- **If you see the "NO DATA" message, refresh the page**
