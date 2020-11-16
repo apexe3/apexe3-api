@@ -4,7 +4,9 @@
 
 All examples make use of the apexe3/apexe3.js wrapper which implements a subset of the REST and websocket API definitions defined in the [APEX:E3 API documentation](https://api.ae3platform.com/docs). 
 
-## The Real-time Global Orderbook for any Pair Across Exchanges
+## Real-time Global Orderbook
+
+Access the Real-time Global Orderbook for any asset Pair across any exchanges.
 
 To run: 
 
@@ -41,7 +43,9 @@ You can easily access the structured data as it updates in the streams callback 
 ```
 You can easily process the globalOrderbook of bids (or asks) in your trading algorithm logic, store it for historical analysis or manipulate as desired.
 
-## Smart Order Routing Analytics - The Real-time Total Supply & Demand of Liquidity for any Pair Across Exchanges
+## Real-time Global Liquidity
+
+Access the Real-time total supply & demand of Liquidity for any asset pair across any exchange.
 
 To run: 
 
@@ -72,7 +76,9 @@ You can easily access the structured data as it updates in real-time in the proc
 ```
 **You can easily process this data in your trading algorithm, smart order routing logic, store it for historical analysis or manipulate as desired.**
 
-## Identify Whale Orders, Arbitrage Opportunities, Large/Medium/Small Bid/Ask Imbalances & Tightest spreads for any Pair Across Exchanges
+## Real-time Insights
+ 
+Identify whale prders, arbitrage opportunities, large/medium/small Bid/Ask imbalances & tightest spreads for any asset pair across any exchange.
 
 To run:
 
@@ -89,7 +95,9 @@ The following example output shows how arbitrages will look in the output.
 
 **You can easily process this data in your trading algorithm, or store them to analyse how orderbook whales, spreads, imbalances and arbitrage opportunities evolve over time**
 
-## Screen markets using technical indicators for any Pair, Quote or Exchange
+## On-demand Screener
+
+Programmatically screen markets using technical indicators for any asset pair, quote or any exchange.
 
 To run:
 
