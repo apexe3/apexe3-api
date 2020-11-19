@@ -6,7 +6,7 @@ The APEX:E3 API gives you access to powerful analytics and market data generated
 
 ### [Install](#install) 
 ### [Quick Start Examples of How To Use the API](https://github.com/apexe3/apexe3-api/tree/main/examples) 
-### [Example Low Code Dashboard Built Using the API](https://tinyurl.com/y3fslf8u) - Sign-up for access here (http://signup.apexe3.ai)
+### [Example Low Code Dashboard Built Using the API](https://tinyurl.com/y3fslf8u)
 ### [Full reference API Docs](https://api.ae3platform.com/docs) 
 ### [APEX:E3](https://www.apexe3.com)
 ### [Web Application](https://app.ae3platform.com/)
