@@ -18,8 +18,8 @@
 const apexe3 = require('./apexe3/apexe3');
 const cTable = require('console.table');
 
-const clientId = "dapi-natalie-salemink-sdx-com";
-const clientSecret = "d3c54623-3b31-4883-8853-57ef874d6bc5";
+const clientId = "Your-ClientId-Goes-Here";
+const clientSecret = "Your-Client-Secret-Goes-Here";
 
 (async () => {
    
