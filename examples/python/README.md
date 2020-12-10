@@ -181,7 +181,7 @@ Programmatically fetch 1d | 4h | 1h | 15m | 1m OHLCV pricing data for a digital 
 To run
 
 ```shell
-node examples/python/fetch_ohlcv_crypto_exchange.py
+python3 examples/python/fetch_ohlcv_crypto_exchange.py
 ```
 
 This will output results for BTC USD on COINBASEPRO consisting of Open, High, Low, Close and Volume for a supplied date range:
