@@ -152,8 +152,26 @@ To run
 node examples/nodejs/fetch-aggregate-ohlcv.js
 ```
 
-This will output results for BTC-USD consisting of echange aggregated Open, High, Low, Close and Volume for a supplied date range:
+This will output results for BTC-USD consisting of exchange aggregated Open, High, Low, Close and Volume for a supplied date range:
 
 ![preview](https://github.com/apexe3/apexe3-api/blob/main/examples/nodejs/apexe3/assets/AggOHLCVExample.png?raw=true)
 
 You can change the ticker and date range as desired.
+
+## On-demand OHLCV pricing data for a crypto exchange
+
+Programmatically fetch 1d | 4h | 1h | 15m | 1m OHLCV pricing data for a digital asset listed on an exchange.
+(Free tier only provides OHLCV for FTX and CoinbasePro)
+
+To run
+
+```shell
+node examples/nodejs/fetch-ohlcv-crypto-exchange.js
+```
+
+This will output results for BTC USD on COINBASEPRO consisting of Open, High, Low, Close and Volume for a supplied date range:
+
+![preview](https://github.com/apexe3/apexe3-api/blob/main/examples/nodejs/apexe3/assets/ohlcvexchangeExample.png?raw=true)
+
+You can change the base, quote, exchange, date range and timeFrame as desired.
+
