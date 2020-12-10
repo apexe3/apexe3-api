@@ -18,8 +18,8 @@
 const apexe3 = require('./apexe3/apexe3');
 const cTable = require('console.table');
 
-const clientId = "Your-ClientId-Goes-Here";
-const clientSecret = "Your-Client-Secret-Goes-Here";
+const clientId = "dapi-natalie-salemink-sdx-com";
+const clientSecret = "d3c54623-3b31-4883-8853-57ef874d6bc5";
 
 (async () => {
    
@@ -27,7 +27,7 @@ const clientSecret = "Your-Client-Secret-Goes-Here";
     //Change these values to a ticker you are interested in -see the supportedAssetIdsForAggregateOHLCV folder for searchable tickers
     let ohlcv = await apexe3.fetchAggregatedOHLCV('BTC-USD', '2018-01-01','2020-12-31','');
    
-    console.table(['Time', 'Open', 'High', 'Low', 'Close', 'Volume'],ohlcv);
+    console.table(ohlcv);
    
 
 })();
