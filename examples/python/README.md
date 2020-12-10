@@ -167,7 +167,7 @@ To run
 python3 examples/python/fetch_aggregate_ohlcv.py
 ```
 
-This will output screened results for BTC-USD consisting of echange aggregated Open, High, Low, Close and Volume for a supplied date range
+This will output screened results for BTC-USD consisting of echange aggregated Open, High, Low, Close and Volume for a supplied date range:
 
 ![preview](https://github.com/apexe3/apexe3-api/blob/main/examples/python/apexe3/assets/AggregatedOHLCV.png?raw=true)
 
