@@ -38,6 +38,8 @@ authUrl = "https://keycloak.ae3platform.com/auth/realms/ApexE3/protocol/openid-c
 requestApiUrl = "https://api.ae3platform.com"
 websocketUrl = "wss://ws.ae3platform.com"
 appUrl = "https://app.ae3platform.com/"
+ohlcvRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCV"
+ohlcvRestTwoAssetsApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVTwoAssets"
 accessToken = ""
 assetIdToCannonicalId = {}
 globalOrderbookBids = []    #in-memory global orderbook of bids
@@ -461,9 +463,20 @@ def fetch_global_orderbook_for_pair(base, quote, marketType):
 
     return globalOB
 
+def fetch_aggregated_OHLCV(asset,fromDate,to,interval):
+    global accessToken
 
+    if(accessToken=='' or accessToken==None):
+        return [['Invalid credentials']]
 
+    encodedAsset = urllib.parse.quote(asset)
+    params = 'symbol=' + encodedAsset + '&from=' + fromDate + '&to='+to+'&interval='+interval
+    url = ohlcvRestApiUrl + '?' + params
+    headersVal = { "Authorization": "bearer " + accessToken }
+    response = requests.get(url, headers=headersVal)
 
+    entities = response.json()["result"]
+    return entities
 
 '''
    /**

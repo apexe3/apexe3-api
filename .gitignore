@@ -8,3 +8,8 @@ examples/python/apexe3.egg-info/requires.txt
 examples/python/apexe3.egg-info/SOURCES.txt
 examples/python/apexe3.egg-info/top_level.txt
 examples/python/dist/apexe3-0.0.1-py3.8.egg
+dist
+apexe3.egg-info
+__pycache__
+yarn.lock
+package-lock.json

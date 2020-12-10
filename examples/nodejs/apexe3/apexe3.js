@@ -25,6 +25,9 @@ const authUrl = 'https://keycloak.ae3platform.com/auth/realms/ApexE3/protocol/op
 const requestApiUrl = 'https://api.ae3platform.com';
 const websocketUrl = 'wss://ws.ae3platform.com';
 const appUrl = "https://app.ae3platform.com/";
+var ohlcvRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCV";
+var ohlcvRestTwoAssetsApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVTwoAssets";
+const INVALID_CREDS_MESSAGE = [['Your APEX:E3 Client Id or Client Secret is invalid. You need valid credentials to recieve data.']];
 
 //screener filter values for reference
 const rsi = ["rsi14d_gte_80_lt_90",
@@ -599,6 +602,46 @@ module.exports = {
     }
 
     return global;
+
+  },
+
+  /**
+   * 
+   * Fetching aggregated OHLCV pricing data for digital and traditional assets
+   * 
+   * Using standard symbol lookup
+   * 
+   * @param {*} asset 
+   * @param {*} from 
+   * @param {*} to 
+   * @param {*} interval 
+   */
+  async fetchAggregatedOHLCV(asset, from, to, interval){
+
+    try{
+
+      if (this.accessToken === '' || this.accessToken == null) {
+        console.log('Invalid credentials');
+        return null;
+      } else { }
+
+      var encodedAsset = encodeURIComponent(asset);
+      var params = 'symbol=' + encodedAsset + '&from=' + from + '&to='+to+'&interval='+interval;
+      var url = ohlcvRestApiUrl + '?' + params;
+      var creds = getOptions(this.accessToken);
+      var response = await fetch(url, creds);
+
+      return await response.json().then((r) => r.result);
+
+
+    }catch(e){
+
+      return [['problem fetching content '+e]];
+
+    }
+
+
+
 
   }
 }
