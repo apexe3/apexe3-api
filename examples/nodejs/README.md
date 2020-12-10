@@ -141,3 +141,19 @@ Example values for these parameters can be found in apexe3.js under the followin
 ```javacript
 //screener filter values for reference
 ```
+
+## On-demand Aggregated OHLCV pricing data
+
+Programmatically fetch 1 day OHLCV pricing data for traditional and digital assets.
+
+To run
+
+```shell
+node examples/nodejs/fetch-aggregate-ohlcv.js
+```
+
+This will output results for BTC-USD consisting of echange aggregated Open, High, Low, Close and Volume for a supplied date range:
+
+![preview](https://github.com/apexe3/apexe3-api/blob/main/examples/nodejs/apexe3/assets/AggOHLCVExample.png?raw=true)
+
+You can change the ticker and date range as desired.
