@@ -156,3 +156,20 @@ Example values for these parameters can be found in apexe3.py under the followin
 ```python
 #screener filter values for reference
 ```
+
+## On-demand Aggregated OHLCV pricing data
+
+Programmatically fetch 1 day OHLCV pricing data for traditional and digital assets.
+
+To run
+
+```shell
+python3 examples/python/fetch_aggregate_ohlcv.py
+```
+
+This will output screened results for BTC-USD consisting of echange aggregated Open, High, Low, Close and Volume for a supplied date range
+
+![preview](https://github.com/apexe3/apexe3-api/blob/main/examples/python/apexe3/assets/AggregatedOHLCV.png?raw=true)
+
+You can change the ticker and date range as desired.
+
