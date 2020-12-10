@@ -40,7 +40,8 @@ websocketUrl = "wss://ws.ae3platform.com"
 appUrl = "https://app.ae3platform.com/"
 ohlcvRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCV"
 ohlcvRestTwoAssetsApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVTwoAssets"
-ohlcvExchangeRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVHistory";
+ohlcvExchangeRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVHistory"
+backtestingRestApiUrl = "https://api.apexe3.ai/__/backtesting-service/runBacktest"
 accessToken = ""
 assetIdToCannonicalId = {}
 globalOrderbookBids = []    #in-memory global orderbook of bids
@@ -523,6 +524,136 @@ def fetch_OHLCV_for_exchange(exchange,base,quote,fromDate,to,timeFrame):
 
     entities = response.json()
     return entities
+
+'''
+  /**
+   * 
+   * Run a backtest by supplying relevant parameters
+   * 
+   * @param {*} startingCapital 
+   * @param {*} exchange 
+   * @param {*} base 
+   * @param {*} quote 
+   * @param {*} from 
+   * @param {*} indicatorParams 
+   * @param {*} stategyParams 
+   */
+'''
+def run_backtest(startingCapital, exchange, base, quote, fromDate, to, indicatorParams, strategyParams): 
+    global accessToken
+
+    if(accessToken=='' or accessToken==None):
+        return [['Invalid credentials']]
+
+    indicator1 = indicatorParams['indicator1']
+    indicator2 = indicatorParams['indicator2']
+
+    period1 =''
+    if 'period' in indicator1:
+        period1 = indicator1['period']
+
+    period2 =''
+    if 'period' in indicator2:
+        period2 = indicator2['period']    
+
+    priceComponent1 = ''
+    if 'priceComponent' in indicator1:
+        priceComponent1 = indicator1['priceComponent'] 
+
+    priceComponent2 = ''
+    if 'priceComponent' in indicator2:
+        priceComponent2 = indicator2['priceComponent'] 
+
+    stdDevUpper1=''
+    if 'stdDevUpper' in indicator1:
+        stdDevUpper1 = indicator1['stdDevUpper']
+
+    stdDevUpper2=''
+    if 'stdDevUpper' in indicator2:
+        stdDevUpper2 = indicator2['stdDevUpper']
+
+    stdDevLower1=''
+    if 'stdDevLower' in indicator1:
+        stdDevLower1 = indicator1['stdDevLower']
+
+    stdDevLower2=''
+    if 'stdDevLower' in indicator2:
+        stdDevLower2 = indicator2['stdDevLower']   
+
+    shortPeriod1=''
+    if 'shortPeriod' in indicator1:
+     shortPeriod1 = indicator1['shortPeriod']         
+
+    longPeriod1=''
+    if 'longPeriod' in indicator1:
+       longPeriod1=indicator1['longPeriod']  
+
+    signalPeriod1=''
+    if 'signalPeriod' in indicator1:
+        signalPeriod1 = indicator1['signalPeriod']  
+
+    shortPeriod2=''
+    if 'shortPeriod' in indicator2:
+     shortPeriod2 = indicator2['shortPeriod']         
+
+    longPeriod2=''
+    if 'longPeriod' in indicator2:
+       longPeriod2=indicator2['longPeriod']  
+
+    signalPeriod2=''
+    if 'signalPeriod' in indicator2:
+        signalPeriod2 = indicator2['signalPeriod'] 
+
+
+
+    params =('exchange=' + exchange
+            + '&base=' + base
+            + '&quote=' + quote
+            + '&from=' + fromDate
+            + '&to=' + to
+            + '&timeFrame=1d'
+            + '&startingCapital=' + startingCapital
+
+            + '&indicator1.type=' + indicator1['type']
+            
+            
+            + '&indicator1.period=' + period1
+            + '&indicator1.priceComponent=' + priceComponent1
+
+            + '&indicator2.type=' + indicator2['type']
+            + '&indicator2.period=' + period2
+            + '&indicator2.priceComponent=' + priceComponent2
+
+            + '&indicator1.stdDevUpper=' +  stdDevUpper1
+            + '&indicator1.stdDevLower=' + stdDevLower1
+
+            + '&indicator2.stdDevUpper=' + stdDevUpper2
+            + '&indicator2.stdDevLower=' + stdDevLower2
+
+            + '&indicator1.shortPeriod=' + shortPeriod1
+            + '&indicator1.longPeriod=' + longPeriod1
+            + '&indicator1.signalPeriod=' + signalPeriod1
+
+            + '&indicator2.shortPeriod=' + shortPeriod2
+            + '&indicator2.longPeriod=' + longPeriod2
+            + '&indicator2.signalPeriod=' + signalPeriod2
+
+            + '&entryDirection=' + strategyParams['entryDirection']
+            + '&entryIndicator1=' + strategyParams['entryIndicator1']
+            + '&entryOperator=' + strategyParams['entryOperator']
+            + '&entryIndicator2=' + strategyParams['entryIndicator2']
+            + '&exitIndicator1=' + strategyParams['exitIndicator1']
+            + '&exitOperator=' + strategyParams['exitOperator']
+            + '&exitIndicator2=' + strategyParams['exitIndicator2']
+            + '&stopLoss=' + strategyParams['stopLoss'])
+
+    url = backtestingRestApiUrl + '?' + params
+    headersVal = { "Authorization": "bearer " + accessToken }
+    response = requests.get(url, headers=headersVal)
+
+    entities = response.json()
+    return entities
+
 
 '''
    /**

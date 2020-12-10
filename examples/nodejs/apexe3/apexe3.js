@@ -28,6 +28,7 @@ const appUrl = "https://app.ae3platform.com/";
 var ohlcvRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCV";
 var ohlcvRestTwoAssetsApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVTwoAssets";
 var ohlcvExchangeRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVHistory";
+var backtestingRestApiUrl = "https://api.apexe3.ai/__/backtesting-service/runBacktest";
 const INVALID_CREDS_MESSAGE = [['Your APEX:E3 Client Id or Client Secret is invalid. You need valid credentials to recieve data.']];
 
 //screener filter values for reference
@@ -617,9 +618,9 @@ module.exports = {
    * @param {*} to 
    * @param {*} interval 
    */
-  async fetchAggregatedOHLCV(asset, from, to, interval){
+  async fetchAggregatedOHLCV(asset, from, to, interval) {
 
-    try{
+    try {
 
       if (this.accessToken === '' || this.accessToken == null) {
         console.log('Invalid credentials');
@@ -627,7 +628,7 @@ module.exports = {
       } else { }
 
       var encodedAsset = encodeURIComponent(asset);
-      var params = 'symbol=' + encodedAsset + '&from=' + from + '&to='+to+'&interval='+interval;
+      var params = 'symbol=' + encodedAsset + '&from=' + from + '&to=' + to + '&interval=' + interval;
       var url = ohlcvRestApiUrl + '?' + params;
       var creds = getOptions(this.accessToken);
       var response = await fetch(url, creds);
@@ -635,9 +636,9 @@ module.exports = {
       return await response.json().then((r) => r.result);
 
 
-    }catch(e){
+    } catch (e) {
 
-      return [['problem fetching content '+e]];
+      return [['problem fetching content ' + e]];
 
     }
   },
@@ -656,31 +657,107 @@ module.exports = {
    * @param {*} to 
    * @param {*} timeFrame 
    */
-  async fetchOHLCVForExchange(exchange,base,quote,from,to,timeFrame){
+  async fetchOHLCVForExchange(exchange, base, quote, from, to, timeFrame) {
 
-    try{
+    try {
 
       if (this.accessToken === '' || this.accessToken == null) {
         console.log('Invalid credentials');
         return null;
       } else { }
 
-      var params = 'exchange='+exchange+'&base='+base+'&quote='+quote+'&from='+from+'&to='+to+'&timeFrame='+timeFrame;
+      var params = 'exchange=' + exchange + '&base=' + base + '&quote=' + quote + '&from=' + from + '&to=' + to + '&timeFrame=' + timeFrame;
       var url = ohlcvExchangeRestApiUrl + '?' + params;
       var creds = getOptions(this.accessToken);
       var response = await fetch(url, creds);
-    
+
       return await response.json().then((r) => r);
 
-    }catch(e){
+    } catch (e) {
 
-      return [['problem fetching content '+e]];
+      return [['problem fetching content ' + e]];
 
     }
+  },
 
-    
+  /**
+   * 
+   * Run a backtest by supplying relevant parameters
+   * 
+   * @param {*} startingCapital 
+   * @param {*} exchange 
+   * @param {*} base 
+   * @param {*} quote 
+   * @param {*} from 
+   * @param {*} indicatorParams 
+   * @param {*} stategyParams 
+   */
+  async runBacktest(startingCapital, exchange, base, quote, from, to, indicatorParams, strategyParams) {
+    try {
+
+      if (this.accessToken === '' || this.accessToken == null) {
+      
+        console.log('Invalid credentials');
+        return null;
+      } else { }
+
+
+      let indicator1 = indicatorParams.indicator1;
+      let indicator2 = indicatorParams.indicator2;
+
+      var params =
+        'exchange=' + exchange
+        + '&base=' + base
+        + '&quote=' + quote
+        + '&from=' + from
+        + '&to=' + to
+        + '&timeFrame=1d'
+        + '&startingCapital=' + startingCapital
+
+        + '&indicator1.type=' + indicator1.type
+        + '&indicator1.period=' + indicator1.period
+        + '&indicator1.priceComponent=' + indicator1.priceComponent
+
+        + '&indicator2.type=' + indicator2.type
+        + '&indicator2.period=' + indicator2.period
+        + '&indicator2.priceComponent=' + indicator2.priceComponent
+
+        + '&indicator1.stdDevUpper=' + indicator1.stdDevUpper
+        + '&indicator1.stdDevLower=' + indicator1.stdDevLower
+
+        + '&indicator2.stdDevUpper=' + indicator2.stdDevUpper
+        + '&indicator2.stdDevLower=' + indicator2.stdDevLower
+
+        + '&indicator1.shortPeriod=' + indicator1.shortPeriod
+        + '&indicator1.longPeriod=' + indicator1.longPeriod
+        + '&indicator1.signalPeriod=' + indicator1.signalPeriod
+
+        + '&indicator2.shortPeriod=' + indicator2.shortPeriod
+        + '&indicator2.longPeriod=' + indicator2.longPeriod
+        + '&indicator2.signalPeriod=' + indicator2.signalPeriod
+
+        + '&entryDirection=' + strategyParams.entryDirection
+        + '&entryIndicator1=' + strategyParams.entryIndicator1
+        + '&entryOperator=' + strategyParams.entryOperator
+        + '&entryIndicator2=' + strategyParams.entryIndicator2
+        + '&exitIndicator1=' + strategyParams.exitIndicator1
+        + '&exitOperator=' + strategyParams.exitOperator
+        + '&exitIndicator2=' + strategyParams.exitIndicator2
+        + '&stopLoss=' + strategyParams.stopLoss;
+
+      var url = backtestingRestApiUrl + '?' + params;
+      var creds = getOptions(this.accessToken);
+      var response = await fetch(url, creds);
+
+      return await response.json().then((r) => r);
+
+    } catch (e) {
+
+      return { result: ['Unable to run backtest'] };
+    }
 
   }
+
 }
 
 /**
