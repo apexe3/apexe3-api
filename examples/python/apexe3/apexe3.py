@@ -40,6 +40,7 @@ websocketUrl = "wss://ws.ae3platform.com"
 appUrl = "https://app.ae3platform.com/"
 ohlcvRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCV"
 ohlcvRestTwoAssetsApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVTwoAssets"
+ohlcvExchangeRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVHistory";
 accessToken = ""
 assetIdToCannonicalId = {}
 globalOrderbookBids = []    #in-memory global orderbook of bids
@@ -463,6 +464,19 @@ def fetch_global_orderbook_for_pair(base, quote, marketType):
 
     return globalOB
 
+'''
+  /**
+   * 
+   * Fetching aggregated OHLCV pricing data for digital and traditional assets
+   * 
+   * Using standard symbol lookup
+   * 
+   * @param {*} asset 
+   * @param {*} from 
+   * @param {*} to 
+   * @param {*} interval 
+   */
+'''
 def fetch_aggregated_OHLCV(asset,fromDate,to,interval):
     global accessToken
 
@@ -476,6 +490,38 @@ def fetch_aggregated_OHLCV(asset,fromDate,to,interval):
     response = requests.get(url, headers=headersVal)
 
     entities = response.json()["result"]
+    return entities
+
+'''
+  /**
+   * 
+   * Fetches OHLCV data for a given crypto exchange, base and quote
+   * over the specified interval and timeframe.
+   * 
+   * Supported time frames: 1min | 15min | 1hr | 4hr | 24hr
+   * 
+   * @param {*} exchange 
+   * @param {*} base 
+   * @param {*} quote 
+   * @param {*} from 
+   * @param {*} to 
+   * @param {*} timeFrame 
+   */
+
+
+'''
+def fetch_OHLCV_for_exchange(exchange,base,quote,fromDate,to,timeFrame):
+    global accessToken
+
+    if(accessToken=='' or accessToken==None):
+        return [['Invalid credentials']]
+
+    params = 'exchange='+exchange+'&base='+base+'&quote='+quote+'&from='+fromDate+'&to='+to+'&timeFrame='+timeFrame
+    url = ohlcvExchangeRestApiUrl + '?' + params
+    headersVal = { "Authorization": "bearer " + accessToken }
+    response = requests.get(url, headers=headersVal)
+
+    entities = response.json()
     return entities
 
 '''

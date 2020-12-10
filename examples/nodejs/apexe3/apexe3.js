@@ -27,6 +27,7 @@ const websocketUrl = 'wss://ws.ae3platform.com';
 const appUrl = "https://app.ae3platform.com/";
 var ohlcvRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCV";
 var ohlcvRestTwoAssetsApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVTwoAssets";
+var ohlcvExchangeRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVHistory";
 const INVALID_CREDS_MESSAGE = [['Your APEX:E3 Client Id or Client Secret is invalid. You need valid credentials to recieve data.']];
 
 //screener filter values for reference
@@ -639,9 +640,45 @@ module.exports = {
       return [['problem fetching content '+e]];
 
     }
+  },
 
+  /**
+   * 
+   * Fetches OHLCV data for a given crypto exchange, base and quote
+   * over the specified interval and timeframe.
+   * 
+   * Supported time frames: 1min | 15min | 1hr | 4hr | 24hr
+   * 
+   * @param {*} exchange 
+   * @param {*} base 
+   * @param {*} quote 
+   * @param {*} from 
+   * @param {*} to 
+   * @param {*} timeFrame 
+   */
+  async fetchOHLCVForExchange(exchange,base,quote,from,to,timeFrame){
 
+    try{
 
+      if (this.accessToken === '' || this.accessToken == null) {
+        console.log('Invalid credentials');
+        return null;
+      } else { }
+
+      var params = 'exchange='+exchange+'&base='+base+'&quote='+quote+'&from='+from+'&to='+to+'&timeFrame='+timeFrame;
+      var url = ohlcvExchangeRestApiUrl + '?' + params;
+      var creds = getOptions(this.accessToken);
+      var response = await fetch(url, creds);
+    
+      return await response.json().then((r) => r);
+
+    }catch(e){
+
+      return [['problem fetching content '+e]];
+
+    }
+
+    
 
   }
 }
