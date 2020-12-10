@@ -32,6 +32,6 @@ def init():
 if __name__ == "__main__":
     init()
     #Change these values to a ticker you are interested in - see the supportedAssetIdsForAggregateOHLCV folder for searchable tickers
-    table=pd.DataFrame(fetch_aggregated_OHLCV('YFII-ETH', '2018-01-01','2020-12-31',''))
+    table=pd.DataFrame(fetch_aggregated_OHLCV('BTC-USD', '2018-01-01','2020-12-31',''))
     
     print(table)
