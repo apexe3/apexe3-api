@@ -173,3 +173,20 @@ This will output results for BTC-USD consisting of echange aggregated Open, High
 
 You can change the ticker and date range as desired.
 
+## On-demand OHLCV pricing data for a crypto exchange
+
+Programmatically fetch 1d | 4h | 1h | 15m | 1m OHLCV pricing data for a digital asset listed on an exchange.
+(Free tier only provides OHLCV for FTX and CoinbasePro)
+
+To run
+
+```shell
+node examples/python/fetch_ohlcv_crypto_exchange.py
+```
+
+This will output results for BTC USD on COINBASEPRO consisting of Open, High, Low, Close and Volume for a supplied date range:
+
+![preview](https://github.com/apexe3/apexe3-api/blob/main/examples/python/apexe3/assets/ohlcv-exchange.png?raw=true)
+
+You can change the base, quote, exchange, date range and timeFrame as desired.
+
