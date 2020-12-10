@@ -3,6 +3,8 @@ ERC-20 tokens. To lookup aggregated OHLCV, append quote to each Ticker e.g.
 BTC-USD
 XRP-ETH
 
+Most ERC-20 tokens have ETH as their quote. e.g. TRC-ETH
+
 Some Tokens may no longer be listed.
 
 Ticker,Name
