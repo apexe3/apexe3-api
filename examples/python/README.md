@@ -157,7 +157,7 @@ Example values for these parameters can be found in apexe3.py under the followin
 #screener filter values for reference
 ```
 
-## On-demand Aggregated OHLCV pricing data
+## On-demand Aggregated OHLCV pricing & USD marketcap data
 
 Programmatically fetch 1 day OHLCV pricing data for traditional and digital assets.
 
@@ -182,6 +182,14 @@ To run
 
 ```shell
 python3 examples/python/fetch_ohlcv_crypto_exchange.py
+```
+
+To retrieve OHLC USD marketcap for a crypto asset
+
+run
+
+```shell
+node examples/python/fetch_aggregate_marketcap.py
 ```
 
 This will output results for BTC USD on COINBASEPRO consisting of Open, High, Low, Close and Volume for a supplied date range:
