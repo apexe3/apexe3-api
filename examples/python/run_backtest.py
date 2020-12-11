@@ -68,7 +68,7 @@ if __name__ == "__main__":
     }
 
     
-    result = run_backtest('10000', 'COINBASEPRO', 'BTC', 'USD', '2018-01-01', '2020-12-31', indicatorParams, strategyParams)
+    result = run_backtest('10000', 'COINBASEPRO', 'BTC', 'USD', '01-01-2018', '31-12-2020', indicatorParams, strategyParams)
     
     print(result['analysis'])
 
