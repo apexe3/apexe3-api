@@ -6,6 +6,7 @@ The APEX:E3 API gives you access to powerful analytics and market data generated
 
 ### [Install](#install) 
 ### [Quick Start Examples of How To Use the API](https://github.com/apexe3/apexe3-api/tree/main/examples) 
+### [Programmatic Backtesting](https://intercom.help/apexe3/en/articles/4711970-programmatic-backtesing)
 ### [Example Low Code Dashboard Built Using the API](https://tinyurl.com/y3fslf8u)
 ### [Sign-up for Dashboard access here](http://signup.apexe3.ai)
 ### [Full reference API Docs](https://api.ae3platform.com/docs) 
