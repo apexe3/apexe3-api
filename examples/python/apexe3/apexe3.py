@@ -42,6 +42,7 @@ ohlcvRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCV"
 ohlcvRestTwoAssetsApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVTwoAssets"
 ohlcvExchangeRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVHistory"
 backtestingRestApiUrl = "https://api.apexe3.ai/__/backtesting-service/runBacktest"
+marketCapRestApiUrl = "http://api.apexe3.ai/__/data-service/fetchMarketCap"
 accessToken = ""
 assetIdToCannonicalId = {}
 globalOrderbookBids = []    #in-memory global orderbook of bids
@@ -524,6 +525,31 @@ def fetch_OHLCV_for_exchange(exchange,base,quote,fromDate,to,timeFrame):
 
     entities = response.json()
     return entities
+
+'''
+  /**
+   * 
+   * Retrieves Market Cap history
+   * for the specified symbol and date range
+   * 
+   * @param {*} symbol 
+   * @param {*} from 
+   * @param {*} to 
+   */
+'''
+def fetch_marketcap_for_crypto_symbol(symbol, fromDate, to):
+    global accessToken
+
+    if(accessToken=='' or accessToken==None):
+        return [['Invalid credentials']]
+
+    params = 'symbol=' + symbol + '&from=' + fromDate + '&to=' + to
+    url = marketCapRestApiUrl + '?' + params
+    headersVal = { "Authorization": "bearer " + accessToken }
+    response = requests.get(url, headers=headersVal)
+
+    entities = response.json()
+    return entities    
 
 '''
   /**

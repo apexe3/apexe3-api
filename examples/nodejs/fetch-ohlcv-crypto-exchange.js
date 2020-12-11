@@ -26,7 +26,7 @@ const clientSecret = "Your-Client-Secret-Goes-Here";
     await apexe3.initialise(clientId, clientSecret);
     //Change parameters as desired -run supported-asset-markets-exchanges.js file for a list of supported markets / exchanges
     //This endpoint is currently limited to COINBASEPRO and FTX for the free tier
-    const ohlcv = await apexe3.fetchOHLCVForExchange('COINBASEPRO','BTC','USD','2018-01-01','2020-12-31','1d');
+    const ohlcv = await apexe3.fetchOHLCVForExchange('COINBASEPRO','BTC','USD','01-01-2018','31-12-2020','1d');
    
     console.table(['Time','Open','High','Low', 'Close', 'Volume'],ohlcv);
    

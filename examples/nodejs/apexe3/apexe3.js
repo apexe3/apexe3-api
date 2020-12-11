@@ -28,6 +28,7 @@ const appUrl = "https://app.ae3platform.com/";
 var ohlcvRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCV";
 var ohlcvRestTwoAssetsApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVTwoAssets";
 var ohlcvExchangeRestApiUrl = "https://api.apexe3.ai/__/data-service/fetchOHLCVHistory";
+var marketCapRestApiUrl = "http://api.apexe3.ai/__/data-service/fetchMarketCap";
 var backtestingRestApiUrl = "https://api.apexe3.ai/__/backtesting-service/runBacktest";
 const INVALID_CREDS_MESSAGE = [['Your APEX:E3 Client Id or Client Secret is invalid. You need valid credentials to recieve data.']];
 
@@ -678,6 +679,39 @@ module.exports = {
       return [['problem fetching content ' + e]];
 
     }
+  },
+
+  /**
+   * 
+   * Retrieves Market Cap history
+   * for the specified symbol and date range
+   * 
+   * @param {*} symbol 
+   * @param {*} from 
+   * @param {*} to 
+   */
+  async fetchMarketCapForCryptoSymbol(symbol, from, to ){
+    try {
+
+      if (this.accessToken === '' || this.accessToken == null) {
+        console.log('Invalid credentials');
+        return null;
+      } else { }
+
+      var params = 'symbol=' + symbol + '&from=' + from + '&to=' + to ;
+      var url = marketCapRestApiUrl + '?' + params;
+      var creds = getOptions(this.accessToken);
+      var response = await fetch(url, creds);
+
+      return await response.json().then((r) => r);
+
+    } catch (e) {
+
+      return [['problem fetching content ' + e]];
+
+    }
+
+
   },
 
   /**

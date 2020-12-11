@@ -1,7 +1,7 @@
 /**
  * fetch-aggregate-ohlcv.js
  * 
- * Retrieves OHLCV for traditional and digital assets
+ * Retrieves market cap OHLCV for digital assets
  * 
  * 
  * Disclaimer:
@@ -25,9 +25,9 @@ const clientSecret = "Your-Client-Secret-Goes-Here";
    
     await apexe3.initialise(clientId, clientSecret);
     //Change these values to a ticker you are interested in -see the supportedAssetIdsForAggregateOHLCV folder for searchable tickers
-    let ohlcv = await apexe3.fetchAggregatedOHLCV('BTC-USD', '01-01-2018','31-12-2020','');
+    let ohlcv = await apexe3.fetchMarketCapForCryptoSymbol('BTC', '01-01-2018','31-12-2020');
    
-    console.table(ohlcv);
+    console.table(ohlcv.result);
    
 
 })();
