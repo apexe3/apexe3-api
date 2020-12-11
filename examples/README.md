@@ -5,7 +5,7 @@ Here you will find powerful low code examples for:
 ## [Python](https://github.com/apexe3/apexe3-api/tree/main/examples/python)
 ## [Nodejs](https://github.com/apexe3/apexe3-api/tree/main/examples/nodejs)
 ## [Google Sheets](https://github.com/apexe3/apexe3-api/tree/main/examples/google-sheets)
-## [Programmatic Backtesting](https://app.intercom.com/a/apps/peg6073f/articles/articles/4711970/show)
+## [Programmatic Backtesting](https://intercom.help/apexe3/en/articles/4711970-programmatic-backtesing)
 
 The examples cover the following usecases for Digital Asset markets
 
