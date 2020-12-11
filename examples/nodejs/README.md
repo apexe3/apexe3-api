@@ -142,7 +142,7 @@ Example values for these parameters can be found in apexe3.js under the followin
 //screener filter values for reference
 ```
 
-## On-demand Aggregated OHLCV pricing data
+## On-demand Aggregated OHLCV pricing and USD marketcap data
 
 Programmatically fetch 1 day OHLCV pricing data for traditional and digital assets.
 
@@ -157,6 +157,14 @@ This will output results for BTC-USD consisting of exchange aggregated Open, Hig
 ![preview](https://github.com/apexe3/apexe3-api/blob/main/examples/nodejs/apexe3/assets/AggOHLCVExample.png?raw=true)
 
 You can change the ticker and date range as desired.
+
+To retrieve OHLC USD marketcap for a crypto asset
+
+run
+
+```shell
+node examples/nodejs/fetch-aggregate-marketcap.js
+```
 
 ## On-demand OHLCV pricing data for a crypto exchange
 
