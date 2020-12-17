@@ -37,38 +37,51 @@ if __name__ == "__main__":
     #Read about how to use this API here:
     #https://intercom.help/apexe3/en/articles/4711970-programmatic-backtesing
     
+
     indicatorParams = {
 
         'indicator1': {
-            'type': 'price'
+            'type': 'rsi',
+            'period':'14'
         },
 
         'indicator2': {
-
-            'type': 'macd',
+            'type':'macd',
             'shortPeriod': '12',
             'longPeriod': '26',
             'signalPeriod': '9',
-            'priceComponent': 'close'
-
         }
 
     }
-    strategyParams = {
 
-        'entryDirection': 'long',
-        'entryIndicator1': 'macd',
-        'entryOperator': '>',
-        'entryIndicator2': 'histogram',
-        'exitIndicator1': 'signal',
-        'exitOperator': '<',
-        'exitIndicator2': 'macd',
-        'stopLoss': '0.1'
+
+
+
+    multiStrategyParams = {
+
+        'longEntryIndicator1': 'hour',
+        'longEntryOperator': '==',
+        'longEntryIndicator2': '12',
+
+        'shortEntryIndicator1': 'hour',
+        'shortEntryOperator': '==',
+        'shortEntryIndicator2': '22',
+
+
+        'longExitIndicator1': 'hour',
+        'longExitOperator': '==',
+        'longExitIndicator2': '5',
+
+        'shortExitIndicator1': 'hour',
+        'shortExitOperator': '==',
+        'shortExitIndicator2': '20',
+
+        'stopLoss': '6',
 
     }
 
     
-    result = run_backtest('10000', 'COINBASEPRO', 'BTC', 'USD', '01-01-2018', '31-12-2020', indicatorParams, strategyParams,'1d','')
+    result = run_backtest('10000', 'COINBASEPRO', 'BTC', 'USD', '01-07-2017', '31-12-2020', indicatorParams, multiStrategyParams,'1h', 'true')
     
     print(result['analysis'])
 

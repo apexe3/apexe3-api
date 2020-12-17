@@ -565,7 +565,7 @@ def fetch_marketcap_for_crypto_symbol(symbol, fromDate, to):
    * @param {*} stategyParams 
    */
 '''
-def run_backtest(startingCapital, exchange, base, quote, fromDate, to, indicatorParams, strategyParams): 
+def run_backtest(startingCapital, exchange, base, quote, fromDate, to, indicatorParams, strategyParams, timeFrame, isMultiStrategy): 
     global accessToken
 
     if(accessToken=='' or accessToken==None):
@@ -632,14 +632,100 @@ def run_backtest(startingCapital, exchange, base, quote, fromDate, to, indicator
 
 
 
+    entryDirection=''
+    if 'entryDirection' in strategyParams:
+        entryDirection = strategyParams['entryDirection'] 
+
+    entryIndicator1=''
+    if 'entryIndicator1' in strategyParams:
+        entryIndicator1 = strategyParams['entryIndicator1']            
+
+    entryOperator=''
+    if 'entryOperator' in strategyParams:
+        entryOperator = strategyParams['entryOperator']      
+
+    entryIndicator2=''
+    if 'entryIndicator2' in strategyParams:
+        entryIndicator2 = strategyParams['entryIndicator2']      
+
+    exitIndicator1=''
+    if 'exitIndicator1' in strategyParams:
+        exitIndicator1= strategyParams['exitIndicator1']   
+
+    exitOperator=''
+    if 'exitOperator' in strategyParams:
+        exitOperator= strategyParams['exitOperator']
+
+    exitIndicator2=''
+    if 'exitIndicator2' in strategyParams:
+        exitIndicator2= strategyParams['exitIndicator2']   
+
+    stopLoss=''
+    if 'stopLoss' in strategyParams:
+        stopLoss= strategyParams['stopLoss']   
+
+    longEntryIndicator1=''
+    if 'longEntryIndicator1' in strategyParams:
+        longEntryIndicator1= strategyParams['longEntryIndicator1']   
+
+    longEntryOperator=''
+    if 'longEntryOperator' in strategyParams:
+        longEntryOperator= strategyParams['longEntryOperator']       
+    
+    longEntryIndicator2=''
+    if 'longEntryIndicator2' in strategyParams:
+        longEntryIndicator2= strategyParams['longEntryIndicator2']   
+
+    shortEntryIndicator1=''
+    if 'shortEntryIndicator1' in strategyParams:
+        shortEntryIndicator1= strategyParams['shortEntryIndicator1']       
+    
+    shortEntryOperator=''
+    if 'shortEntryOperator' in strategyParams:
+        shortEntryOperator= strategyParams['shortEntryOperator']       
+    
+    shortEntryIndicator2=''
+    if 'shortEntryIndicator2' in strategyParams:
+        shortEntryIndicator2= strategyParams['shortEntryIndicator2']   
+
+    longExitIndicator1=''
+    if 'longExitIndicator1' in strategyParams:
+        longExitIndicator1= strategyParams['longExitIndicator1']       
+    
+    longExitOperator=''
+    if 'longExitOperator' in strategyParams:
+        longExitOperator= strategyParams['longExitOperator']       
+    
+    longExitIndicator2=''
+    if 'longExitIndicator2' in strategyParams:
+        longExitIndicator2= strategyParams['longExitIndicator2']   
+    
+    
+    shortExitIndicator1=''
+    if 'shortExitIndicator1' in strategyParams:
+        shortExitIndicator1= strategyParams['shortExitIndicator1']       
+    
+
+    shortExitOperator=''
+    if 'shortExitOperator' in strategyParams:
+       shortExitOperator= strategyParams['shortExitOperator']       
+
+    
+    shortExitIndicator2=''
+    if 'shortExitIndicator2' in strategyParams:
+        shortExitIndicator2= strategyParams['shortExitIndicator2']   
+
+
+
+
     params =('exchange=' + exchange
             + '&base=' + base
             + '&quote=' + quote
             + '&from=' + fromDate
             + '&to=' + to
-            + '&timeFrame=1d'
+            + '&timeFrame=' + timeFrame
             + '&startingCapital=' + startingCapital
-
+            + '&isMultiStrategy=' +isMultiStrategy
             + '&indicator1.type=' + indicator1['type']
             
             
@@ -664,14 +750,33 @@ def run_backtest(startingCapital, exchange, base, quote, fromDate, to, indicator
             + '&indicator2.longPeriod=' + longPeriod2
             + '&indicator2.signalPeriod=' + signalPeriod2
 
-            + '&entryDirection=' + strategyParams['entryDirection']
-            + '&entryIndicator1=' + strategyParams['entryIndicator1']
-            + '&entryOperator=' + strategyParams['entryOperator']
-            + '&entryIndicator2=' + strategyParams['entryIndicator2']
-            + '&exitIndicator1=' + strategyParams['exitIndicator1']
-            + '&exitOperator=' + strategyParams['exitOperator']
-            + '&exitIndicator2=' + strategyParams['exitIndicator2']
-            + '&stopLoss=' + strategyParams['stopLoss'])
+            + '&entryDirection=' + entryDirection
+            + '&entryIndicator1=' + entryIndicator1
+            + '&entryOperator=' + entryOperator
+            + '&entryIndicator2=' + entryIndicator2
+            + '&exitIndicator1=' + exitIndicator1
+            + '&exitOperator=' + exitOperator
+            + '&exitIndicator2=' + exitIndicator2
+
+
+            + '&longEntryIndicator1=' + longEntryIndicator1
+            + '&longEntryOperator=' + longEntryOperator
+            + '&longEntryIndicator2=' + longEntryIndicator2
+
+            + '&shortEntryIndicator1=' + shortEntryIndicator1
+            + '&shortEntryOperator=' + shortEntryOperator
+            + '&shortEntryIndicator2=' + shortEntryIndicator2
+
+
+            + '&longExitIndicator1=' + longExitIndicator1
+            + '&longExitOperator=' + longExitOperator
+            + '&longExitIndicator2=' + longExitIndicator2
+
+            + '&shortExitIndicator1=' + shortExitIndicator1
+            + '&shortExitOperator=' + shortExitOperator
+            + '&shortExitIndicator2=' + shortExitIndicator2
+
+            + '&stopLoss=' + stopLoss)
 
     url = backtestingRestApiUrl + '?' + params
     headersVal = { "Authorization": "bearer " + accessToken }
