@@ -84,6 +84,7 @@ python3 examples/python/setup.py install
 ```shell
 sudo python3 examples/python/setup.py install 
 ```
+**Note** - If you are installing on windows and see the following error: “install_lib: ‘build/lib’ does not exist -- no Python modules to install”, change the directory to “apexe3-api/examples/python” instead of “apexe3-api” and run the installation from there.
 
 See Low Code examples for what you can do once you have installed dependencies (https://github.com/apexe3/apexe3-api/tree/main/examples)
 
